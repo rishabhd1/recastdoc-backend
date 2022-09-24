@@ -1,4 +1,4 @@
-exports.upload = (req, res) => {
+function upload(req, res) {
   const urls = req.files.map((file) => {
     return {
       url: file.location,
@@ -10,3 +10,7 @@ exports.upload = (req, res) => {
 
   res.json(urls);
 };
+
+module.exports = {
+  upload
+}

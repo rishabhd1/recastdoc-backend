@@ -5,10 +5,10 @@ const uploadRoutes = require('./routes');
 
 db.authenticate()
   .then((success) => {
-    console.log(success);
+    console.log('DB Connected:', success);
   })
   .catch((err) => {
-    console.log(error);
+    console.log(err);
   });
 
 const app = express();
