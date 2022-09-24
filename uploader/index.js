@@ -1,20 +1,26 @@
 const express = require('express');
 
-const db = require('./utils/database');
-const uploadRoutes = require('./routes');
+const db = require('./src/utils/database');
+const uploadRoutes = require('./src/routes');
 
-db.authenticate()
-  .then((success) => {
-    console.log('DB Connected:', success);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+async function init() {
+  try {
+    await db.authenticate();
+    console.log('DB Connected');
 
-const app = express();
+    const app = express();
 
-app.use('/v1', uploadRoutes);
+    app.use('/v1', uploadRoutes);
+    app.get('/', (req, res) => {
+      res.json({ msg: 'API Running' });
+    });
 
-app.listen(3000, () => {
-  console.log('App Started');
-});
+    app.listen(3000, () => {
+      console.log('App Started');
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+init();
